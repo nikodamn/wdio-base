@@ -1,0 +1,31 @@
+{
+  "name": "wdio-base",
+  "version": "1.0.0",
+  "description": "Webdriverio base project template",
+  "main": "index.js",
+  "scripts": {
+    "test": "wdio test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikodamn/wdio-base.git"
+  },
+  "keywords": [
+    "wdio",
+    "webdriverio",
+    "chai",
+    "testing",
+    "e2e",
+    "javascript",
+    "functional"
+  ],
+  "author": "nikodamn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nikodamn/wdio-base/issues"
+  },
+  "homepage": "https://github.com/nikodamn/wdio-base#readme",
+  "dependencies": {
+    "webdriverio": "^4.14.0"
+  }
+}
