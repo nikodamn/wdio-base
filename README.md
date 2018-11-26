@@ -1,4 +1,4 @@
-<a href="http://github.com/nikodamn/wdio-base"><img src="https://github.com/nikodamn/wdio-base/blob/readme/logo.png?raw=true" title="Wdio-base logo" alt="Wdio-base"></a>
+<a href="http://github.com/nikodamn/wdio-base"><img src="https://github.com/nikodamn/wdio-base/blob/master/logo.png?raw=true" title="Wdio-base logo" alt="Wdio-base"></a>
 
 
 #  Wdio base
