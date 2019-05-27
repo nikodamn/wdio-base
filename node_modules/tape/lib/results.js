@@ -16,14 +16,16 @@ var nextTick = typeof setImmediate !== 'undefined'
 module.exports = Results;
 inherits(Results, EventEmitter);
 
-function Results () {
+function Results() {
     if (!(this instanceof Results)) return new Results;
     this.count = 0;
     this.fail = 0;
     this.pass = 0;
+    this.todo = 0;
     this._stream = through();
     this.tests = [];
     this._only = null;
+    this._isRunning = false;
 }
 
 Results.prototype.createStream = function (opts) {
@@ -32,7 +34,7 @@ Results.prototype.createStream = function (opts) {
     var output, testId = 0;
     if (opts.objectMode) {
         output = through();
-        self.on('_push', function ontest (t, extra) {
+        self.on('_push', function ontest(t, extra) {
             if (!extra) extra = {};
             var id = testId++;
             t.once('prerun', function () {
@@ -65,14 +67,17 @@ Results.prototype.createStream = function (opts) {
         self._stream.pipe(output);
     }
 
-    nextTick(function next() {
-        var t;
-        while (t = getNextTest(self)) {
-            t.run();
-            if (!t.ended) return t.once('end', function(){ nextTick(next); });
-        }
-        self.emit('done');
-    });
+    if (!this._isRunning) {
+        this._isRunning = true;
+        nextTick(function next() {
+            var t;
+            while (t = getNextTest(self)) {
+                t.run();
+                if (!t.ended) return t.once('end', function () { nextTick(next); });
+            }
+            self.emit('done');
+        });
+    }
 
     return output;
 };
@@ -103,7 +108,7 @@ Results.prototype._watch = function (t) {
         write(encodeResult(res, self.count + 1));
         self.count ++;
 
-        if (res.ok) self.pass ++
+        if (res.ok || res.todo) self.pass ++
         else {
             self.fail ++;
             self.emit('fail');
@@ -121,14 +126,15 @@ Results.prototype.close = function () {
 
     write('\n1..' + self.count + '\n');
     write('# tests ' + self.count + '\n');
-    write('# pass  ' + self.pass + '\n');
-    if (self.fail) write('# fail  ' + self.fail + '\n')
-    else write('\n# ok\n')
+    write('# pass  ' + (self.pass + self.todo) + '\n');
+    if (self.todo) write('# todo  ' + self.todo + '\n');
+    if (self.fail) write('# fail  ' + self.fail + '\n');
+    else write('\n# ok\n');
 
     self._stream.queue(null);
 };
 
-function encodeResult (res, count) {
+function encodeResult(res, count) {
     var output = '';
     output += (res.ok ? 'ok ' : 'not ok ') + count;
     output += res.name ? ' ' + res.name.toString().replace(/\s+/g, ' ') : '';
@@ -175,7 +181,7 @@ function encodeResult (res, count) {
     return output;
 }
 
-function getNextTest (results) {
+function getNextTest(results) {
     if (!results._only) {
         return results.tests.shift();
     }
@@ -189,6 +195,6 @@ function getNextTest (results) {
     } while (results.tests.length !== 0)
 }
 
-function invalidYaml (str) {
+function invalidYaml(str) {
     return regexpTest(yamlIndicators, str);
 }

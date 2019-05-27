@@ -1,0 +1,29 @@
+# Node dependencies
+/node_modules/
+
+# Optional npm cache directory
+.npm
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Optional eslint cache
+.eslintcache
+
+# Error shots for tests
+/screenshots/*.png
+
+# Test reports
+/allure-results/*.xml
+/allure-results/*.png
+/allure-results/*.log
+/allure-results/*.json
+/screenshots/*.png

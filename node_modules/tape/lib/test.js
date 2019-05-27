@@ -39,7 +39,7 @@ var getTestArgs = function (name_, opts_, cb_) {
     return { name: name, opts: opts, cb: cb };
 };
 
-function Test (name_, opts_, cb_) {
+function Test(name_, opts_, cb_) {
     if (! (this instanceof Test)) {
         return new Test(name_, opts_, cb_);
     }
@@ -51,6 +51,7 @@ function Test (name_, opts_, cb_) {
     this.assertCount = 0;
     this.pendingCount = 0;
     this._skip = args.opts.skip || false;
+    this._todo = args.opts.todo || false;
     this._timeout = args.opts.timeout;
     this._plan = undefined;
     this._cb = args.cb;
@@ -112,7 +113,7 @@ Test.prototype.test = function (name, opts, cb) {
         });
     }
 
-    nextTick(function() {
+    nextTick(function () {
         if (!self._plan && self.pendingCount == self._progeny.length) {
             self._end();
         }
@@ -131,14 +132,14 @@ Test.prototype.plan = function (n) {
     this.emit('plan', n);
 };
 
-Test.prototype.timeoutAfter = function(ms) {
+Test.prototype.timeoutAfter = function (ms) {
     if (!ms) throw new Error('timeoutAfter requires a timespan');
     var self = this;
-    var timeout = safeSetTimeout(function() {
+    var timeout = safeSetTimeout(function () {
         self.fail('test timed out after ' + ms + 'ms');
         self.end();
     }, ms);
-    this.once('end', function() {
+    this.once('end', function () {
         safeClearTimeout(timeout);
     });
 }
@@ -200,17 +201,18 @@ Test.prototype._pendingAsserts = function () {
     return this._plan - (this._progeny.length + this.assertCount);
 };
 
-Test.prototype._assert = function assert (ok, opts) {
+Test.prototype._assert = function assert(ok, opts) {
     var self = this;
     var extra = opts.extra || {};
 
     var res = {
-        id : self.assertCount ++,
-        ok : Boolean(ok),
-        skip : defined(extra.skip, opts.skip),
-        name : defined(extra.message, opts.message, '(unnamed assert)'),
-        operator : defined(extra.operator, opts.operator),
-        objectPrintDepth : self._objectPrintDepth
+        id: self.assertCount++,
+        ok: Boolean(ok),
+        skip: defined(extra.skip, opts.skip),
+        todo: defined(extra.todo, opts.todo, self._todo),
+        name: defined(extra.message, opts.message, '(unnamed assert)'),
+        operator: defined(extra.operator, opts.operator),
+        objectPrintDepth: self._objectPrintDepth
     };
     if (has(opts, 'actual') || has(extra, 'actual')) {
         res.actual = defined(extra.actual, opts.actual);
@@ -220,7 +222,7 @@ Test.prototype._assert = function assert (ok, opts) {
     }
     this._ok = Boolean(this._ok && ok);
 
-    if (!ok) {
+    if (!ok && !res.todo) {
         res.error = defined(extra.error, opts.error, new Error(res.name));
     }
 
@@ -263,9 +265,9 @@ Test.prototype._assert = function assert (ok, opts) {
                 Last part captures file path plus line no (and optional
                 column no).
 
-                    /((?:\/|[A-Z]:\\)[^:\)]+:(\d+)(?::(\d+))?)/
+                    /((?:\/|[a-zA-Z]:\\)[^:\)]+:(\d+)(?::(\d+))?)/
             */
-            var re = /^(?:[^\s]*\s*\bat\s+)(?:(.*)\s+\()?((?:\/|[A-Z]:\\)[^:\)]+:(\d+)(?::(\d+))?)/
+            var re = /^(?:[^\s]*\s*\bat\s+)(?:(.*)\s+\()?((?:\/|[a-zA-Z]:\\)[^:\)]+:(\d+)(?::(\d+))?)/
             var m = re.exec(err[i]);
 
             if (!m) {
@@ -402,7 +404,7 @@ function notEqual(a, b, msg, extra) {
         message : defined(msg, 'should not be equal'),
         operator : 'notEqual',
         actual : a,
-        notExpected : b,
+        expected : b,
         extra : extra
     });
 }
@@ -451,11 +453,12 @@ function notDeepEqual(a, b, msg, extra) {
         message : defined(msg, 'should not be equivalent'),
         operator : 'notDeepEqual',
         actual : a,
-        notExpected : b,
+        expected : b,
         extra : extra
     });
 }
 Test.prototype.notDeepEqual
+= Test.prototype.notDeepEquals
 = Test.prototype.notEquivalent
 = Test.prototype.notDeeply
 = Test.prototype.notSame
