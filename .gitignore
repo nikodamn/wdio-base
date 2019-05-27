@@ -21,9 +21,12 @@ pids
 # Error shots for tests
 /screenshots/*.png
 
-# Test reports
+# Allure results
 /allure-results/*.xml
 /allure-results/*.png
 /allure-results/*.log
 /allure-results/*.json
 /screenshots/*.png
+
+# Allure generated reports
+/allure-report/
