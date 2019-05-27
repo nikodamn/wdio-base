@@ -8,10 +8,10 @@ exports.config = merge(
     baseConfig.config,
     {
         suites: {
-            example: ['../suites/example.desktop.js'],
+            example: ['./specs/suites/example.desktop.js'],
         },
-        specs: ['../**/suites/**/*.desktop.js'],
-        exclude: ['../**/suites/**/*.mobile.js'],
+        specs: ['./specs/suites/*.desktop.js'],
+        exclude: ['./specs/suites/*.mobile.js'],
         hostname: 'selenium-standalone',
         port: 4444,
         path: '/wd/hub',
