@@ -29,7 +29,7 @@ services:
       - CONFIG=${CONFIG}
     build:
       context: .
-      dockerfile: Dockerfile-wdio
+      dockerfile: Dockerfile
     # Run all suites (no --suite switch) using configured 4444 port
     command: ./node_modules/.bin/wdio ./specs/config/remote-${CONFIG}.conf.js --port=4444
     # Test results and screenshots are generated in runtime.
