@@ -1,0 +1,49 @@
+version: '3.5'
+services:
+
+  # This is Selenium Standalone docker image. In the future it should be substituted with official one.
+  selenium-standalone:
+    container_name: selenium-standalone
+    image: selenium/standalone-chrome:latest
+    # We're using 4444 port for communication with Selenium Standalone
+    ports:
+      - "4444:4444"
+    environment:
+    # Hotfix for broken connection issues for bigger scale. Nasty, but works. ¯\_(ツ)_/¯
+      - NODE_MAX_INSTANCES=100
+      - NODE_MAX_SESSION=100
+    # Logs from Selenium Server are huge and pollute our logs, that's why we mute them.
+    # logging:
+      # driver: none
+    volumes:
+      - /dev/shm:/dev/shm
+    # Network for communication between containers.
+    networks:
+      - testing-network
+
+  wdio:
+    container_name: wdio
+    # Pass this env variable from Jenkins job to WebdriverIO framework
+    environment:
+      - ENV=${ENV}
+      - CONFIG=${CONFIG}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Run all suites (no --suite switch) using configured 4444 port
+    command: ./node_modules/.bin/wdio ./specs/config/remote-${CONFIG}.conf.js --port=4444
+    # Test results and screenshots are generated in runtime.
+    # To be able to see them in Jenkins we need to make them persist. That's why we use volumes.
+    volumes:
+      - ./allure-results:/allure-results
+      - ./screenshots:/screenshots
+    # Wait for Selenium Standalone to build first.
+    depends_on:
+      - selenium-standalone
+    # Network for communication between containers.
+    networks:
+      - testing-network
+
+networks:
+  testing-network:
+    driver: bridge
