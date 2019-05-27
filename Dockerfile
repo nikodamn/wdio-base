@@ -2,7 +2,7 @@ FROM node:10-alpine
 
 EXPOSE 4444
 
-WORKDIR /
+RUN apk update && apk add --no-cache git
 
 COPY package.json .
 

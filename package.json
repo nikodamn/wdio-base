@@ -30,20 +30,18 @@
   },
   "homepage": "https://github.com/nikodamn/wdio-base#readme",
   "dependencies": {
-    "@wdio/allure-reporter": "^5.7.11",
-    "@wdio/cli": "^5.8.3",
-    "@wdio/local-runner": "^5.8.3",
-    "@wdio/mocha-framework": "^5.8.1",
-    "@wdio/spec-reporter": "^5.7.2",
-    "@wdio/sync": "^5.8.1",
-    "allure-commandline": "^2.8.1",
+    "@wdio/allure-reporter": "^5.9.3",
+    "@wdio/cli": "^5.9.3",
+    "@wdio/local-runner": "^5.9.3",
+    "@wdio/mocha-framework": "^5.9.3",
+    "@wdio/spec-reporter": "^5.9.3",
+    "@wdio/sync": "^5.9.3",
+    "allure-commandline": "^2.9.0",
     "chai": "^4.2.0",
     "chromedriver": "^74.0.0",
     "deepmerge": "^3.2.0",
-    "tap": "^12.1.0",
-    "tape": "^4.9.1",
     "wdio-chromedriver-service": "^5.0.1",
-    "webdriverio": "5.9.3"
+    "webdriverio": "^5.9.3"
   },
   "devDependencies": {}
 }

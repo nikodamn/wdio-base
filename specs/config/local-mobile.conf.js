@@ -13,8 +13,8 @@ exports.config = merge(
         suites: {
             // none for now :)
         },
-        specs: ['**/suites/**/*.mobile.js'],
-        exclude: ['**/suites/**/*.mobile.js'],
+        specs: ['./specs/suites/*.mobile.js'],
+        exclude: ['./specs/suites/*.mobile.js'],
         port: 9515,
         path: '/',
         specFileRetries: 0,
