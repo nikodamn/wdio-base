@@ -7,12 +7,15 @@
 
 Base platform for your WebdriverIO 5.x.x project.
 
-* WebdriverIO
-* Chromedriver for local development
-* Chai for Assertions
-* Mocha as test runner
+* `WebdriverIO` (version 5.x.x)
+* `Chromedriver` for local development
+* Selenium Standalone server for CI usage
+* `Chai` for Assertions
+* `Mocha` as test runner
 * Allure Dashboard integration for raporting
-* Separated Desktop and Mobile configuration files
+* Separated Desktop and Mobile configuration files (both local and remote)
+* Application is fully dockerized and communicates with also dockerized `selenium-standalone`
+* Jenkins pipeline for running, cleaning and managing Docker images. Added support for Allure in Jenkins
 
 ## License
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
