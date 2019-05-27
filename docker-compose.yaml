@@ -27,6 +27,8 @@ services:
     environment:
       - ENV=${ENV}
       - CONFIG=${CONFIG}
+    # 955 is Jenkins user on qa-executors
+    user: "955"
     build:
       context: .
       dockerfile: Dockerfile
