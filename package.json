@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "wdio test",
-    "wdio": "./node_modules/.bin/wdio ./specs/config/local-desktop.conf.js"
+    "wdio": "./node_modules/.bin/wdio ./specs/config/local-desktop.conf.js",
+    "allure-generate": "./node_modules/.bin/allure generate ./allure-results",
+    "allure-generate:clean": "./node_modules/.bin/allure generate ./allure-results --clean",
+    "allure-open": "./node_modules/.bin/allure open"
   },
   "repository": {
     "type": "git",

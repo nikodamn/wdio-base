@@ -1,0 +1,21 @@
+{
+  "uid" : "83edc06c07f9ae9e47eb6dd1b683e4e2",
+  "name" : "packages",
+  "children" : [ {
+    "name" : "First suite",
+    "children" : [ {
+      "name" : "main page test",
+      "uid" : "e17dab959eed05f9",
+      "parentUid" : "602c6c1b31bfa5d851272190cc49369b",
+      "status" : "passed",
+      "time" : {
+        "start" : 1558965994162,
+        "stop" : 1558965996095,
+        "duration" : 1933
+      },
+      "flaky" : false,
+      "parameters" : [ "chrome" ]
+    } ],
+    "uid" : "602c6c1b31bfa5d851272190cc49369b"
+  } ]
+}
