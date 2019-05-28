@@ -41,10 +41,10 @@ node ('wdio') { // you probably have nodes with different label in your Jenkins
             sh(script: 'git config --global user.email "nikodemhynek+wdio@gmail.com"')
 
             git url: 'git@github.com:nikodamn/wdio-base.git',
-            // You probably need to use different credentials ;)
-            credentialsId: '1be9c0a0-c981-4d7f-97f9-f7351ce476c4',
+            // You probably need to use different credentials
+            credentialsId: 'b133f478-47bf-4a73-817a-c618cee7da55',
             branch: 'master'
-            sshagent(credentials: ['1be9c0a0-c981-4d7f-97f9-f7351ce476c4']) {
+            sshagent(credentials: ['b133f478-47bf-4a73-817a-c618cee7da55']) {
                 //Clean any local changes and untracked files, then fetch and checkout
                 sh "git reset --hard"
                 // Clean ignored files and directories like 'build'
