@@ -76,6 +76,8 @@ node ('wdio') { // you probably have nodes with different label in your Jenkins
         }
     }
 
+    echo "Desktop tests exit status: ${desktopTestsExitStatus}"
+
     if(params.resolution.toLowerCase().contains("mobile")) {
         try {
             stage('Run all mobile tests') {
@@ -89,7 +91,7 @@ node ('wdio') { // you probably have nodes with different label in your Jenkins
         }
     }
 
-    echo "Desktop tests exit status: ${testsExitStatus}"
+    echo "Mobile tests exit status: ${mobileTestsExitStatus}"
 
         // Use Allure jenkins plugin for generating raports
         stage('Generate Allure reports') {
