@@ -42,9 +42,9 @@ node ('wdio') { // you probably have nodes with different label in your Jenkins
 
             git url: 'git@github.com:nikodamn/wdio-base.git',
             // You probably need to use different credentials
-            credentialsId: 'b133f478-47bf-4a73-817a-c618cee7da55',
+            credentialsId: 'bd3cf712-39a7-4b16-979e-ff86208ab2ea',
             branch: 'master'
-            sshagent(credentials: ['b133f478-47bf-4a73-817a-c618cee7da55']) {
+            sshagent(credentials: ['bd3cf712-39a7-4b16-979e-ff86208ab2ea']) {
                 //Clean any local changes and untracked files, then fetch and checkout
                 sh "git reset --hard"
                 // Clean ignored files and directories like 'build'
