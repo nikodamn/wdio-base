@@ -76,7 +76,7 @@ node ('wdio') {
             stage('Run all mobile tests') {
                 // Pass ENV param from job parameter and run all tests (command configured in docker-compose.yaml).
                 // --exit-code-from wdio ensures that once all tests finished container will be stopped.
-                testsExitStatus = sh (returnStatus: true, script: "& ENV=${params.environment} docker-compose -p wdio-${jobBuildNumber} run wdio ./node_modules/.bin/wdio ./specs/config/remote-mobile.conf.js --port=4444")
+                testsExitStatus = sh (returnStatus: true, script: "ENV=${params.environment} docker-compose -p wdio-${jobBuildNumber} run wdio ./node_modules/.bin/wdio ./specs/config/remote-mobile.conf.js --port=4444")
             }
         } catch (e) {
                 // No operation.
