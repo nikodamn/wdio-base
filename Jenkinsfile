@@ -34,8 +34,8 @@ node ('wdio') {
 
         stage("Clone repo and setup git") {
             // Setup git credentials
-            sh(script: 'git config --global user.name "Sir Jenkins"')
-            sh(script: 'git config --global user.email "jenkins@fandom.com"')
+            sh(script: 'git config --global user.name "Automator"')
+            sh(script: 'git config --global user.email "nikodemhynek+wdio@gmail.com"')
 
             git url: 'git@github.com:nikodamn/wdio-base.git',
             credentialsId: 'bd3cf712-39a7-4b16-979e-ff86208ab2ea',
