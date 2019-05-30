@@ -1,5 +1,5 @@
 {
-  "name": "wdio-base",
+  "name": "wdio-wichtowski",
   "version": "1.0.0",
   "description": "Webdriverio base project template",
   "main": "index.js",
