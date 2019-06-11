@@ -11,7 +11,7 @@ exports.config = merge(
     baseConfig.config,
     {
         suites: {
-            example: ['./specs/suites/example.desktop.js'],
+            mainpage: ['./specs/suites/mainpage.desktop.js'],
         },
         specs: ['./specs/suites/*.desktop.js'],
         exclude: ['./specs/suites/*.mobile.js'],

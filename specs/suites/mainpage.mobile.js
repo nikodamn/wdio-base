@@ -26,7 +26,8 @@ function testProductCategoryPage(i) {
         expect(common.isDisplayed('#search_filters_wrapper', 'Search filter'), `Search filters should be displayed for ${name}`).to.be.true;
     });
 };
-describe('[Desktop] Main Page', () => {
+
+describe('[Mobile] First suite', () => {
     it('modules visibility', () => {
         common.navigateToMainPage();
 
@@ -125,9 +126,8 @@ describe('[Desktop] Main Page', () => {
         expect($('.product-name-detail').getAttribute('textContent').trim().toLowerCase(), 'Check product name').to.equal(productName.trim().toLowerCase());
     });
 
-    it.only('Product page elements', () => {
+    it('Product page elements', () => {
         browser.url(SOME_PRODUCT_PAGE);
     })
-
 
 });
